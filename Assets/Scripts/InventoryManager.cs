@@ -52,25 +52,15 @@ namespace InventoryManager.Manager
                 }
             return false;
         }
-        public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
+        public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType) 
         {
-            if (itemType == ItemType.consumable || itemType == ItemType.crafting || itemType == ItemType.collectible)
-            {
-                for (int i = 0; i < itemSlot.Length; i++)
-                {
-                    if (itemSlot[i].isFull == false && itemSlot[i].itemName == itemName || itemSlot[i].quantity == 0)
-                    {
-                        int leftOverItems = itemSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription, itemType);
-                        if (leftOverItems > 0)
-                        {
-                            leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription, itemType);
-                            return leftOverItems;
-                        }
-                    }
-
-                }
+           for (int i= 0; i < itemSlot.Length; i++) {
+            if (itemSlot[i].isFull == false) {
+             itemSlot[i].AddItem(itemName,quantity,itemSprite,itemDescription, itemType);
+                return; 
             }
-            else
+           }
+           /* else
             {
                 for (int i = 0; i < equipmentSlot.Length; i++)
                 {
@@ -86,8 +76,7 @@ namespace InventoryManager.Manager
 
                 }
 
-            }
-            return quantity;
+            } */
         }
         public void DeselectAllSlots()
         {
